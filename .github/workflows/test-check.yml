@@ -1,0 +1,30 @@
+name: Unit Tests Check
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  tests-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "export PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction
+
+      - name: Install dependencies
+        run: |
+          poetry run pytest --cov=src --fail-under=75 -v
