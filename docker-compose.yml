@@ -1,0 +1,9 @@
+services:
+  fast-api-base:
+    image: $IMAGE
+    environment:
+      - APP_ENV=$APP_ENV
+      - API_PORT=$API_PORT
+      - API_HOST=$API_HOST
+    ports:
+      - "8000:8000"
